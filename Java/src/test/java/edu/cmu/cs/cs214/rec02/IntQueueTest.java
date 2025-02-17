@@ -29,6 +29,8 @@ import static org.junit.Assert.*;
  */
 public class IntQueueTest {
 
+    
+
     private IntQueue mQueue;
     private List<Integer> testList;
 
@@ -53,19 +55,35 @@ public class IntQueueTest {
     @Test
     public void testNotEmpty() {
         // TODO: write your own unit test
-        fail("Test not implemented");
+        for (int i = 0; i < testList.size(); i++) {
+            mQueue.enqueue(testList.get(i));
+        }
+       
+        assertFalse(mQueue.isEmpty());
     }
-
     @Test
     public void testPeekEmptyQueue() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+        try {
+            mQueue.peek();  
+            fail("Expected IllegalStateException when peeking empty queue.");  // Exception гарах ёстой.
+        } catch (IllegalStateException e) {
+            
+            assertEquals("Queue is empty", e.getMessage());
+        } catch (Exception e) {
+            
+            fail("Expected IllegalStateException, but got: " + e.getClass().getSimpleName());
+        }
     }
+    
+
 
     @Test
     public void testPeekNoEmptyQueue() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+        
+        mQueue.enqueue(1);
+        mQueue.enqueue(2);
+        
+        assertEquals(Integer.valueOf(1), mQueue.peek());
     }
 
     @Test
@@ -80,8 +98,19 @@ public class IntQueueTest {
 
     @Test
     public void testDequeue() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+        for (int i = 0; i < testList.size(); i++) {
+            mQueue.enqueue(testList.get(i));
+        }
+
+        
+        for (int i = 0; i < testList.size(); i++) {
+            assertEquals(testList.get(i), mQueue.dequeue());
+            
+            assertEquals(testList.size() - i - 1, mQueue.size());
+        }
+
+        
+        assertTrue(mQueue.isEmpty());
     }
 
     @Test
@@ -107,3 +136,5 @@ public class IntQueueTest {
 
 
 }
+
+
